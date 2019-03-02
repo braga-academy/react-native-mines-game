@@ -2,7 +2,7 @@ import { Dimensions } from 'react-native'
 
 const params = {
 	blockSize: 30,
-	borderSize: 5,
+	borderSize: 3,
 	fontSize: 15,
 	headerRatio: 0.15, // Proporção dos painel superior na tela
 	difficultLevel: 0.1,

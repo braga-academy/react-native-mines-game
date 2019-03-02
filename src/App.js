@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {Platform, StyleSheet, Text, View} from 'react-native'
+import { StyleSheet, Text, View} from 'react-native'
 import params from './params'
+import Field from './components/Field'
 
 
 export default class App extends Component {
@@ -12,6 +13,13 @@ export default class App extends Component {
           Tamanho da grade:
           { params.getRowsAmount() } x { params.getColumsAmount() }
         </Text>
+
+        <Field/>
+        <Field opened/>
+        <Field opened nearMines={1}/>
+        <Field opened nearMines={2}/>
+        <Field opened nearMines={3}/>
+        <Field opened nearMines={6}/>
       </View>
     );
   }
