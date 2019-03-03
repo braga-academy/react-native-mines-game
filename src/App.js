@@ -1,9 +1,16 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View} from 'react-native'
+import { StyleSheet, Text, View, Alert } from 'react-native'
 import params from './params'
 import MineField from './components/MineField'
 
-import { createMinedBoard } from './functions'
+import {
+  createMinedBoard,
+  cloneBoard,
+  openField,
+  hadExplosion,
+  wonGame,
+  showMines
+} from './functions'
 
 export default class App extends Component {
 
@@ -24,8 +31,28 @@ export default class App extends Component {
     const rows = params.getRowsAmount()
 
     return {
-      board: createMinedBoard(rows, cols, this.minesAmount())
+      board: createMinedBoard(rows, cols, this.minesAmount()),
+      won: false,
+      lost: false
     }
+  }
+
+  onOpenField = (row, column) => {
+    const board = cloneBoard(this.state.board)
+    openField(board, row, column)
+    const lost = hadExplosion(board)
+    const won = wonGame(board)
+
+    if(lost) {
+      showMines(board)
+      Alert.alert('Perdeeeeeu!', 'Que buuuuuurro!!')
+    }
+
+    if (won) {
+      Alert.alert('Parabéns!', 'Você Venceu!')
+    }
+
+    this.setState({ board, lost, won })
   }
 
   render() {
@@ -38,7 +65,8 @@ export default class App extends Component {
         </Text>
 
         <View>
-          <MineField board={this.state.board} />
+          <MineField board={this.state.board}
+            onOpenField={this.onOpenField}/>
         </View>
 
 
